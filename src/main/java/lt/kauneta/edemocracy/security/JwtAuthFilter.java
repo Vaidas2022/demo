@@ -46,17 +46,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         final String username = jwtUtils.extractUsername(token);
-        User user = userService.findByUsername(username).orElse(null);
 
-        if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(
-                            user,
-                            null,
-                            null // Roles jei bus vėliau
-                    );
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        // Check if user is valid and not already authenticated
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            User user = userService.findByUsername(username).orElse(null);
+
+            if (user != null) {
+                UsernamePasswordAuthenticationToken authToken =
+                        new UsernamePasswordAuthenticationToken(user, null, null);
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
         }
 
         filterChain.doFilter(request, response);
