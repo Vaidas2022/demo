@@ -2,6 +2,7 @@ package lt.kauneta.edemocracy.auth.service;
 
 import lt.kauneta.edemocracy.auth.dto.*;
 import lt.kauneta.edemocracy.auth.model.User;
+import lt.kauneta.edemocracy.auth.model.UserRole;
 import lt.kauneta.edemocracy.security.JwtUtils;
 
 import org.springframework.stereotype.Service;
@@ -45,11 +46,11 @@ public class AuthService {
                 userIdGenerator.getAndIncrement(),
                 request.getUsername(),
                 request.getEmail(),
-                encodedPassword
+                encodedPassword,
+                UserRole.CITIZEN // default role
         );
-
         userService.save(user);
-        return new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail());
+        return new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail(), user.getRole());
     }
     
 

@@ -1,6 +1,7 @@
 package lt.kauneta.edemocracy.auth.service;
 
 import lt.kauneta.edemocracy.auth.model.User;
+import lt.kauneta.edemocracy.auth.model.UserRole;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,11 @@ public class UserService {
 
     @PostConstruct
     public void initUsers() {
-        users.put("demo", new User(1L, "demo", "demo@example.com", passwordEncoder.encode("password123")));
-        users.put("admin", new User(2L, "admin", "admin@example.com", passwordEncoder.encode("adminpass")));
+        users.put("demo", new User(1L, "demo", "demo@example.com",
+                passwordEncoder.encode("password123"), UserRole.CITIZEN));
+
+        users.put("admin", new User(2L, "admin", "admin@example.com",
+                passwordEncoder.encode("adminpass"), UserRole.WIZARD));
     }
 
     public Optional<User> findByUsername(String username) {

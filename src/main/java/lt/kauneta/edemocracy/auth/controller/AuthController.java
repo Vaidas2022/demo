@@ -30,6 +30,11 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<UserResponseDTO> getCurrentUser(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return ResponseEntity.ok(new UserResponseDTO(user.getId(), user.getUsername(), user.getEmail()));
+        return ResponseEntity.ok(
+        		new UserResponseDTO(
+        				user.getId(), 
+        				user.getUsername(),
+        				user.getEmail(), 
+        				user.getRole()));
     }
 }

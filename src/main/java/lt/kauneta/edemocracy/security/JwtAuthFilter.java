@@ -8,12 +8,14 @@ import lt.kauneta.edemocracy.auth.model.User;
 import lt.kauneta.edemocracy.auth.service.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -47,13 +49,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         final String username = jwtUtils.extractUsername(token);
 
-        // Check if user is valid and not already authenticated
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             User user = userService.findByUsername(username).orElse(null);
 
             if (user != null) {
                 UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(user, null, null);
+                        new UsernamePasswordAuthenticationToken(
+                                user,
+                                null,
+                                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+                        );
+
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
