@@ -29,4 +29,8 @@ public class Petition {
     public PetitionStatus getStatus() { return status; }
     public Long getAuthorId() { return authorId; }
     public Instant getCreatedAt() { return createdAt; }
+    
+    public void setTitle(String title) { this.title = title; }
+    public void setDescription(String description) { this.description = description; }
+    public void setCategory(PetitionCategory category) { this.category = category; }
 }

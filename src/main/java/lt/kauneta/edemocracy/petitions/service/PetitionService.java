@@ -2,6 +2,7 @@ package lt.kauneta.edemocracy.petitions.service;
 
 import lt.kauneta.edemocracy.petitions.dto.PetitionRequestDTO;
 import lt.kauneta.edemocracy.petitions.dto.PetitionResponseDTO;
+import lt.kauneta.edemocracy.petitions.dto.PetitionUpdateDTO;
 import lt.kauneta.edemocracy.petitions.model.Petition;
 import lt.kauneta.edemocracy.petitions.model.PetitionCategory;
 import lt.kauneta.edemocracy.petitions.model.PetitionStatus;
@@ -32,6 +33,17 @@ public class PetitionService {
 
     public Optional<PetitionResponseDTO> getPetitionById(Long id) {
         return Optional.ofNullable(petitionStore.get(id)).map(this::toDTO);
+    }
+
+    public Optional<PetitionResponseDTO> updatePetition(Long id, Long authorId, PetitionUpdateDTO update) {
+        Petition petition = petitionStore.get(id);
+        if (petition == null || !petition.getAuthorId().equals(authorId)) return Optional.empty();
+        if (petition.getStatus() != PetitionStatus.PENDING_REVIEW) return Optional.empty();
+
+        petition.setTitle(update.getTitle());
+        petition.setDescription(update.getDescription());
+        petition.setCategory(update.getCategory());
+        return Optional.of(toDTO(petition));
     }
 
     private PetitionResponseDTO toDTO(Petition petition) {

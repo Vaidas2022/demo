@@ -3,7 +3,10 @@ package lt.kauneta.edemocracy.petitions.controller;
 import lt.kauneta.edemocracy.auth.model.User;
 import lt.kauneta.edemocracy.petitions.dto.PetitionRequestDTO;
 import lt.kauneta.edemocracy.petitions.dto.PetitionResponseDTO;
+import lt.kauneta.edemocracy.petitions.dto.PetitionUpdateDTO;
 import lt.kauneta.edemocracy.petitions.service.PetitionService;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -44,5 +47,17 @@ public class PetitionController {
         return petitionService.getPetitionById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('COUNCILOR')")
+    public ResponseEntity<PetitionResponseDTO> updatePetition(
+            @PathVariable Long id,
+            @RequestBody PetitionUpdateDTO update,
+            @AuthenticationPrincipal User currentUser
+    ) {
+        return petitionService.updatePetition(id, currentUser.getId(), update)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.FORBIDDEN).build());
     }
 }
