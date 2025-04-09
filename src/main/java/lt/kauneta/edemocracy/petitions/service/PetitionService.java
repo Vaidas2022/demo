@@ -5,15 +5,18 @@ import lt.kauneta.edemocracy.petitions.dto.PetitionResponseDTO;
 import lt.kauneta.edemocracy.petitions.dto.PetitionUpdateDTO;
 import lt.kauneta.edemocracy.petitions.model.Petition;
 import lt.kauneta.edemocracy.petitions.model.PetitionCategory;
+import lt.kauneta.edemocracy.petitions.model.PetitionSignature;
 import lt.kauneta.edemocracy.petitions.model.PetitionStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class PetitionService {
     private final Map<Long, Petition> petitionStore = new HashMap<>();
+    private final Map<String, PetitionSignature> signatures = new ConcurrentHashMap<>();
     private final AtomicLong petitionIdGenerator = new AtomicLong(1);
 
     public PetitionResponseDTO createPetition(PetitionRequestDTO request, Long authorId) {
@@ -44,6 +47,19 @@ public class PetitionService {
         petition.setDescription(update.getDescription());
         petition.setCategory(update.getCategory());
         return Optional.of(toDTO(petition));
+    }
+
+    public boolean signPetition(Long petitionId, Long userId) {
+        Petition petition = petitionStore.get(petitionId);
+        if (petition == null) return false;
+
+        String key = petitionId + ":" + userId;
+        if (signatures.containsKey(key)) return false;
+
+        PetitionSignature signature = new PetitionSignature(petitionId, userId);
+        signatures.put(key, signature);
+        petition.incrementSignatureCount();
+        return true;
     }
 
     private PetitionResponseDTO toDTO(Petition petition) {
