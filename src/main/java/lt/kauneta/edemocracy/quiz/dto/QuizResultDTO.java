@@ -6,6 +6,18 @@ public class QuizResultDTO {
     private boolean correct;
     private QuizAnswerOption correctAnswer;
     private int timeTakenSeconds;
+    
+
+    
+    
+	public QuizResultDTO(boolean correct, QuizAnswerOption correctAnswer, int timeTakenSeconds) {
+		super();
+		this.correct = correct;
+		this.correctAnswer = correctAnswer;
+		this.timeTakenSeconds = timeTakenSeconds;
+	}
+	
+	
 	public boolean isCorrect() {
 		return correct;
 	}
