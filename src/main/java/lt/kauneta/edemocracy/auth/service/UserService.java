@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
 
@@ -37,6 +38,6 @@ public class UserService {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();		
 		
 		return userRepository.findByUsername(username).map(User::getId)
-				.orElseThrow(() -> new RuntimeException("User not found in context"));
+				.orElseThrow(() -> new UsernameNotFoundException("User not found in context"));
 	}
 }

@@ -31,11 +31,8 @@ public class QuizService {
 
     public QuizQuestionDTO getRandomQuestion() {
         Long userId = userService.getCurrentUserId();
-        List<QuizQuestion> all = quizQuestionRepository.findAll();
-        List<QuizQuestion> unseen = all.stream()
-                .filter(q -> !quizUserProgressRepository.existsByUserIdAndQuestionId(userId, q.getId()))
-                .toList();
-
+        List<QuizQuestion> unseen = quizQuestionRepository.findUnansweredByUserId(userId);
+        
         if (unseen.isEmpty()) {
             throw new RuntimeException("No new questions available.");
         }

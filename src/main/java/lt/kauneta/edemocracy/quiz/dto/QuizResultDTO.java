@@ -1,11 +1,15 @@
 package lt.kauneta.edemocracy.quiz.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lt.kauneta.edemocracy.quiz.model.QuizAnswerOption;
 
 public class QuizResultDTO {
     private boolean correct;
     private QuizAnswerOption correctAnswer;
     private int timeTakenSeconds;
+    
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String explanation;
 
 
