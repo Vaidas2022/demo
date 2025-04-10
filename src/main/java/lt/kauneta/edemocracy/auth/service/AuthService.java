@@ -65,7 +65,7 @@ public class AuthService {
         User anonymous = new User();
         anonymous.setUsername("anon_" + UUID.randomUUID().toString().substring(0, 8));
         anonymous.setEmail(UUID.randomUUID() + "@anon.local");
-        anonymous.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+        anonymous.setPassword("{disabled}");
         anonymous.setRole(UserRole.ANONYMOUS);
 
         userRepository.save(anonymous);
