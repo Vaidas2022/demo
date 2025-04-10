@@ -21,7 +21,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/quiz/question").authenticated()
+                .requestMatchers("/api/quiz/**")
+                	.hasAnyRole("ANONYMOUS", "CITIZEN", "COUNCILOR", "MODERATOR", "WIZARD", "ADMIN")
                 .anyRequest().authenticated()
             );
 

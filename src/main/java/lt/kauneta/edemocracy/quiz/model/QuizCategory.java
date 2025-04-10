@@ -7,5 +7,6 @@ public enum QuizCategory {
     SAVIVALDA,
     KONSTITUCIJA,
     ISTORIJA,
-    ES
+    ES,
+    UZSIENIO_POLITIKA
 }

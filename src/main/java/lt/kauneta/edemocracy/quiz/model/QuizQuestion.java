@@ -33,14 +33,14 @@ public class QuizQuestion {
     private QuizAnswerOption correctAnswer;
 
     @Column(nullable = false)
-    private int timeLimitSeconds;
+    private int timeLimitSeconds = 10;
     
     @Column(length = 2000)
     private String explanation;
 
-    private int correctCount;
-    private int incorrectCount;
-    private int skippedCount;
+    private int correctCount = 0;
+    private int incorrectCount = 0;
+    private int skippedCount = 0;
 
     private Integer difficultyScore; 
 
