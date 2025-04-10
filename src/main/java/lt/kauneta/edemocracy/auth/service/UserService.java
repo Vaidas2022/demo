@@ -1,45 +1,29 @@
 package lt.kauneta.edemocracy.auth.service;
 
 import lt.kauneta.edemocracy.auth.model.User;
-import lt.kauneta.edemocracy.auth.model.UserRole;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
+import lt.kauneta.edemocracy.auth.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.PostConstruct;
-
-import java.util.*;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
-    private final Map<String, User> users = new HashMap<>();
+    private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserService(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @PostConstruct
-    public void initUsers() {
-        users.put("demo", new User(1L, "demo", "demo@example.com",
-                passwordEncoder.encode("password123"), UserRole.CITIZEN));
-
-        users.put("admin", new User(2L, "admin", "admin@example.com",
-                passwordEncoder.encode("adminpass"), UserRole.WIZARD));
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public Optional<User> findByUsername(String username) {
-        return Optional.ofNullable(users.get(username));
-    }
-
-    public boolean existsByUsername(String username) {
-        return users.containsKey(username);
+        return userRepository.findByUsername(username);
     }
 
     public User save(User user) {
-        users.put(user.getUsername(), user);
-        return user;
+        return userRepository.save(user);
+    }
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 }

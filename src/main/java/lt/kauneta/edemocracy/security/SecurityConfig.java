@@ -22,6 +22,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // 🧼 new DSL-style disabling
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/quiz/**").authenticated()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
