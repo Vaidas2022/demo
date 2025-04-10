@@ -6,18 +6,21 @@ public class QuizResultDTO {
     private boolean correct;
     private QuizAnswerOption correctAnswer;
     private int timeTakenSeconds;
-    
+    private String explanation;
 
-    
-    
-	public QuizResultDTO(boolean correct, QuizAnswerOption correctAnswer, int timeTakenSeconds) {
+
+
+	public QuizResultDTO(boolean correct, QuizAnswerOption correctAnswer, int timeTakenSeconds, String explanation) {
 		super();
 		this.correct = correct;
 		this.correctAnswer = correctAnswer;
 		this.timeTakenSeconds = timeTakenSeconds;
+		this.explanation = explanation;
 	}
-	
-	
+
+
+
+
 	public boolean isCorrect() {
 		return correct;
 	}
@@ -35,6 +38,20 @@ public class QuizResultDTO {
 	}
 	public void setTimeTakenSeconds(int timeTakenSeconds) {
 		this.timeTakenSeconds = timeTakenSeconds;
+	}
+
+
+
+
+	public String getExplanation() {
+		return explanation;
+	}
+
+
+
+
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
 	}
     
     

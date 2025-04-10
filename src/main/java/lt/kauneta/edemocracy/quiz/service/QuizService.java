@@ -2,7 +2,6 @@ package lt.kauneta.edemocracy.quiz.service;
 
 import lt.kauneta.edemocracy.quiz.dto.*;
 import lt.kauneta.edemocracy.quiz.model.QuizAnswerOption;
-import lt.kauneta.edemocracy.quiz.model.QuizCategory;
 import lt.kauneta.edemocracy.quiz.model.QuizQuestion;
 import lt.kauneta.edemocracy.quiz.repository.QuizQuestionRepository;
 import org.springframework.stereotype.Service;
@@ -54,7 +53,8 @@ public class QuizService {
         return new QuizResultDTO(
                 correct,
                 question.getCorrectAnswer(),
-                answerDTO.getTimeTakenSeconds()
+                answerDTO.getTimeTakenSeconds(),
+                question.getExplanation()
         );
     }
 

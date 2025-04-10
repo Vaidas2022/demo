@@ -34,6 +34,9 @@ public class QuizQuestion {
 
     @Column(nullable = false)
     private int timeLimitSeconds;
+    
+    @Column(length = 2000)
+    private String explanation;
 
     private int correctCount;
     private int incorrectCount;
@@ -133,6 +136,15 @@ public class QuizQuestion {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+
+	public String getExplanation() {
+		return explanation;
+	}
+
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
+	}
     
+	
     
 }
