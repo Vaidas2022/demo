@@ -1,11 +1,17 @@
 package lt.kauneta.edemocracy.quiz.service;
 
+import lt.kauneta.edemocracy.auth.service.UserService;
 import lt.kauneta.edemocracy.quiz.dto.*;
 import lt.kauneta.edemocracy.quiz.model.QuizAnswerOption;
 import lt.kauneta.edemocracy.quiz.model.QuizQuestion;
+import lt.kauneta.edemocracy.quiz.model.QuizUserProgress;
 import lt.kauneta.edemocracy.quiz.repository.QuizQuestionRepository;
+import lt.kauneta.edemocracy.quiz.repository.QuizUserProgressRepository;
+
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -15,9 +21,14 @@ public class QuizService {
 
     private final QuizQuestionRepository questionRepository;
     private final Random random = new Random();
+	private final QuizUserProgressRepository quizUserProgressRepository;
+	private final UserService userService;
 
-    public QuizService(QuizQuestionRepository questionRepository) {
+    public QuizService(QuizQuestionRepository questionRepository, QuizUserProgressRepository quizUserProgressRepository, UserService userService) {
         this.questionRepository = questionRepository;
+		this.quizUserProgressRepository = quizUserProgressRepository;
+		this.userService = userService;
+        
     }
 
     public QuizQuestionDTO getRandomQuestion() {
@@ -47,6 +58,17 @@ public class QuizService {
         boolean correct = answerDTO.getSelectedAnswer() == question.getCorrectAnswer();
 
         updateQuestionStats(question, answerDTO.getSelectedAnswer(), correct);
+        
+        QuizUserProgress progress = new QuizUserProgress(
+        		userService.getCurrentUserId(), // ← You must fetch this from JWT or pass explicitly
+        	    question.getId(),
+        	    answerDTO.getSelectedAnswer(),
+        	    correct,
+        	    answerDTO.getSelectedAnswer() == null,
+        	    answerDTO.getTimeTakenSeconds(),
+        	    LocalDateTime.now()
+        	);
+        quizUserProgressRepository.save(progress);
 
         questionRepository.save(question);
 
