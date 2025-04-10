@@ -37,4 +37,10 @@ public class AuthController {
         				user.getEmail(), 
         				user.getRole()));
     }
+    
+    @PostMapping("/anonymous")
+    public ResponseEntity<LoginResponseDTO> anonymousLogin() {
+        LoginResponseDTO response = authService.createAnonymousUser();
+        return ResponseEntity.ok(response);
+    }
 }

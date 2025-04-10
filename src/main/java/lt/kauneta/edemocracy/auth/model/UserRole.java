@@ -1,21 +1,21 @@
 package lt.kauneta.edemocracy.auth.model;
 
 public enum UserRole {
+    ANONYMOUS("Svečias"),
     OBSERVER("Stebėtojas"),
-    CITIZEN("Pilietis"),
-    FACT_CHECKER("Faktų tikrintojas"),
+    CITIZEN("Forumo dalyvis"),
     COUNCILOR("Tarybos narys"),
+    GUARDIAN("Saugos pareigūnas"),
     WIZARD("Konstitucijos guru"),
-    AGITATOR("Agitatorius"),
-    SYSTEM("Sistema");
+    ADMIN("Administratorius");
 
-    private final String displayNameLt;
+    private final String label;
 
-    UserRole(String displayNameLt) {
-        this.displayNameLt = displayNameLt;
+    UserRole(String label) {
+        this.label = label;
     }
 
-    public String getDisplayNameLt() {
-        return displayNameLt;
+    public String getLabel() {
+        return label;
     }
 }

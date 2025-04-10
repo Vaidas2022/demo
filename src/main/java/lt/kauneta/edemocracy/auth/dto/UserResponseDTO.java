@@ -14,7 +14,7 @@ public class UserResponseDTO {
         this.username = username;
         this.email = email;
         this.role = role.name();
-        this.roleName = role.getDisplayNameLt();
+        this.roleName = role.getLabel();
     }
 
     public Long getId() {
