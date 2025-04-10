@@ -9,6 +9,7 @@ import lt.kauneta.edemocracy.auth.service.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -57,27 +58,20 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         final String username = jwtUtils.extractUsername(token);
         logger.debug(username);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        logger.debug( auth != null ? auth.getAuthorities().toString() : "Auth is NULL");
         
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            User user = userService.findByUsername(username).orElse(null);
-
-            logger.debug( user != null ? user.toString() : "User is NULL");
+        userService.findByUsername(username)
+        	.ifPresent(user -> {
+        		List<GrantedAuthority> authorities = List.of(
+        				new SimpleGrantedAuthority("ROLE_" + user.getRole())
+        	);
             
-            if (user != null) {
-            	
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(
-                                user,
-                                null,
-                                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
-                        );
-
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
-            }
-        }
+            UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(
+                		user.getUsername(), 
+                		null, 
+                		authorities);
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+        });
 
         filterChain.doFilter(request, response);
     }

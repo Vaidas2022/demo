@@ -42,12 +42,51 @@ public class QuizQuestion {
     private int incorrectCount;
     private int skippedCount;
 
-    private Integer difficultyScore; // 1–10, apskaičiuojama automatiškai?
+    private Integer difficultyScore; 
 
     private Long createdByUserId;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public QuizQuestion() {}
+
+	public QuizQuestion(Long id, String questionText, QuizCategory category, QuizAnswerOption correctAnswer,
+			int timeLimitSeconds, String explanation, int correctCount, int incorrectCount, int skippedCount,
+			Integer difficultyScore, Long createdByUserId) {
+		super();
+		this.id = id;
+		this.questionText = questionText;
+		this.category = category;
+		this.correctAnswer = correctAnswer;
+		this.timeLimitSeconds = timeLimitSeconds;
+		this.explanation = explanation;
+		this.correctCount = correctCount;
+		this.incorrectCount = incorrectCount;
+		this.skippedCount = skippedCount;
+		this.difficultyScore = difficultyScore;
+		this.createdByUserId = createdByUserId;
+		this.createdAt = LocalDateTime.now();
+	}
+
+	public QuizQuestion(
+						String questionText, 
+						QuizCategory category, 
+						QuizAnswerOption correctAnswer,
+						int timeLimitSeconds, 
+						Long createdByUserId, 
+						String explanation
+						) {
+		super();
+		this.questionText = questionText;
+		this.category = category;
+		this.correctAnswer = correctAnswer;
+		this.timeLimitSeconds = timeLimitSeconds;
+		this.explanation = explanation;
+
+		this.createdByUserId = createdByUserId;
+		this.createdAt = LocalDateTime.now();
+	}
 
 	public Long getId() {
 		return id;
@@ -143,6 +182,21 @@ public class QuizQuestion {
 
 	public void setExplanation(String explanation) {
 		this.explanation = explanation;
+	}
+
+	public void incrementSkippedCount() {
+		skippedCount++;
+		
+	}
+
+	public void incrementCorrectCount() {
+		correctCount++;
+		
+	}
+
+	public void incrementIncorrectCount() {
+		incorrectCount++;
+		
 	}
     
 	
