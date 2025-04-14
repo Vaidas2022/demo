@@ -1,7 +1,7 @@
-package lt.kauneta.edemokratija.issue.presentation;
+package lt.kauneta.edemocracy.issue.presentation;
 
-import lt.kauneta.edemokratija.issue.application.IssueService;
-import lt.kauneta.edemokratija.issue.domain.Issue;
+import lt.kauneta.edemocracy.issue.application.IssueService;
+import lt.kauneta.edemocracy.issue.domain.Issue;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package lt.kauneta.edemokratija.issue.domain;
+package lt.kauneta.edemocracy.issue.domain;
 
 public enum IssueStatus {
     SUGGESTED,

@@ -1,12 +1,13 @@
-package lt.kauneta.edemocracy.petitions.service;
+package lt.kauneta.edemocracy.petition.service;
 
+import lt.kauneta.edemocracy.petition.model.Petition;
+import lt.kauneta.edemocracy.petition.model.PetitionCategory;
+import lt.kauneta.edemocracy.petition.model.PetitionSignature;
+import lt.kauneta.edemocracy.petition.model.PetitionStatus;
 import lt.kauneta.edemocracy.petitions.dto.PetitionRequestDTO;
 import lt.kauneta.edemocracy.petitions.dto.PetitionResponseDTO;
 import lt.kauneta.edemocracy.petitions.dto.PetitionUpdateDTO;
-import lt.kauneta.edemocracy.petitions.model.Petition;
-import lt.kauneta.edemocracy.petitions.model.PetitionCategory;
-import lt.kauneta.edemocracy.petitions.model.PetitionSignature;
-import lt.kauneta.edemocracy.petitions.model.PetitionStatus;
+
 import org.springframework.stereotype.Service;
 
 import java.util.*;

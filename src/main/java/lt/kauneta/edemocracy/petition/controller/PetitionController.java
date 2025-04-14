@@ -1,10 +1,11 @@
-package lt.kauneta.edemocracy.petitions.controller;
+package lt.kauneta.edemocracy.petition.controller;
 
 import lt.kauneta.edemocracy.auth.model.User;
+import lt.kauneta.edemocracy.petition.service.PetitionService;
 import lt.kauneta.edemocracy.petitions.dto.PetitionRequestDTO;
 import lt.kauneta.edemocracy.petitions.dto.PetitionResponseDTO;
 import lt.kauneta.edemocracy.petitions.dto.PetitionUpdateDTO;
-import lt.kauneta.edemocracy.petitions.service.PetitionService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,6 +1,6 @@
-package lt.kauneta.edemocracy.petitions.dto;
+package lt.kauneta.edemocracy.petition.dto;
 
-import lt.kauneta.edemocracy.petitions.model.PetitionCategory;
+import lt.kauneta.edemocracy.petition.model.PetitionCategory;
 
 public class PetitionRequestDTO {
     private String title;

@@ -1,7 +1,7 @@
-package lt.kauneta.edemokratija.issue.application;
+package lt.kauneta.edemocracy.issue.application;
 
-import lt.kauneta.edemokratija.issue.domain.Issue;
-import lt.kauneta.edemokratija.issue.domain.repositories.IssueRepository;
+import lt.kauneta.edemocracy.issue.domain.Issue;
+import lt.kauneta.edemocracy.issue.domain.repositories.IssueRepository;
 
 import org.springframework.stereotype.Service;
 

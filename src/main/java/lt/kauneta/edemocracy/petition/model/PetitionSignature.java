@@ -1,4 +1,4 @@
-package lt.kauneta.edemocracy.petitions.model;
+package lt.kauneta.edemocracy.petition.model;
 
 import java.time.Instant;
 

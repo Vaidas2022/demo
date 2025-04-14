@@ -1,7 +1,8 @@
 package lt.kauneta.edemocracy.petitions.controller;
 
+import lt.kauneta.edemocracy.petition.service.PetitionService;
 import lt.kauneta.edemocracy.petitions.dto.PetitionRequestDTO;
-import lt.kauneta.edemocracy.petitions.service.PetitionService;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

@@ -1,4 +1,4 @@
-package lt.kauneta.edemocracy.petitions.model;
+package lt.kauneta.edemocracy.petition.model;
 
 public enum PetitionCategory {
     EDUCATION,
