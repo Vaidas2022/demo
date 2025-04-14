@@ -1,4 +1,4 @@
-package lt.edemokratija.issue.domain;
+package lt.kauneta.edemokratija.issue.domain;
 
 import java.util.HashSet;
 import java.util.Set;
