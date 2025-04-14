@@ -3,7 +3,7 @@ package lt.kauneta.edemocracy.petition.dto;
 import java.time.Instant;
 
 import lt.kauneta.edemocracy.petition.model.PetitionCategory;
-import lt.kauneta.edemocracy.petition.model.PetitionStatus;
+
 
 public class PetitionResponseDTO {
     private Long id;

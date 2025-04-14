@@ -1,12 +1,13 @@
 package lt.kauneta.edemocracy.petition.service;
 
-import lt.kauneta.edemocracy.petition.model.Petition;
+
+import lt.kauneta.edemocracy.petition.domain.Petition;
+import lt.kauneta.edemocracy.petition.domain.PetitionStatus;
+import lt.kauneta.edemocracy.petition.dto.PetitionRequestDTO;
+import lt.kauneta.edemocracy.petition.dto.PetitionResponseDTO;
 import lt.kauneta.edemocracy.petition.model.PetitionCategory;
 import lt.kauneta.edemocracy.petition.model.PetitionSignature;
-import lt.kauneta.edemocracy.petition.model.PetitionStatus;
-import lt.kauneta.edemocracy.petitions.dto.PetitionRequestDTO;
-import lt.kauneta.edemocracy.petitions.dto.PetitionResponseDTO;
-import lt.kauneta.edemocracy.petitions.dto.PetitionUpdateDTO;
+
 
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class PetitionService {
     private final AtomicLong petitionIdGenerator = new AtomicLong(1);
 
     public PetitionResponseDTO createPetition(PetitionRequestDTO request, Long authorId) {
-        Long id = petitionIdGenerator.getAndIncrement();
+        UUID id = petitionIdGenerator.getAndIncrement();
         Petition petition = new Petition(id, request.getTitle(), request.getDescription(),
                 request.getCategory(), PetitionStatus.PENDING_REVIEW, authorId);
         petitionStore.put(id, petition);

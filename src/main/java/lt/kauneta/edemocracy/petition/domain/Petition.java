@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import lt.kauneta.edemocracy.petition.model.PetitionCategory;
+
 public class Petition {
 
     private final UUID id;
@@ -24,7 +26,15 @@ public class Petition {
         this.status = PetitionStatus.DRAFT;
     }
 
-    public UUID getId() {
+    public Petition(UUID id, String title, String description, PetitionCategory category, PetitionStatus pendingReview,
+			Long authorId) {
+				this.id = id;
+				this.issueId = null;
+				this.createdAt = null;
+				this.supporterIds = null;
+	}
+
+	public UUID getId() {
         return id;
     }
 

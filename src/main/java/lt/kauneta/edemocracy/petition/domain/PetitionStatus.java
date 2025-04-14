@@ -5,5 +5,6 @@ public enum PetitionStatus {
     READY_FOR_SUBMISSION,
     SUBMITTED,
     ESCALATED,
-    CLOSED
+    CLOSED, 
+    PENDING_REVIEW
 }
